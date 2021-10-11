@@ -25,14 +25,14 @@ class MarcaSeeder extends Seeder
 
         //2) o método create (atenção para o atributo fillable da classe)
         Marca::create([
-            'nome' => 'BMW',
-            'imagem' => 'bmw.png',
+            'nome' => 'VolksWagen',
+            'imagem' => 'volkswagen.png',
         ]);
 
-        //insert
-        DB::table('marcas')->insert([
-            'nome' => 'FIAT',
-            'imagem' => 'fiat.png',
-        ]);
+        //3) tipo menos usado - não preench os campos create e update
+        // DB::table('marcas')->insert([
+        //     'nome' => 'Chevrolet',
+        //     'imagem' => 'chevrolet.png',
+        // ]);
     }
 }

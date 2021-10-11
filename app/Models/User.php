@@ -22,6 +22,7 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'email_verified_at',
     ];
 
     /**
@@ -62,4 +63,13 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function rules() {
+        return [
+            'name' => 'required:string',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|string',
+        ];
+    }
+
 }
