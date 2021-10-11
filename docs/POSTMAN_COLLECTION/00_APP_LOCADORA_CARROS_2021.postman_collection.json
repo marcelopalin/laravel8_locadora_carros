@@ -1,0 +1,381 @@
+{
+	"info": {
+		"_postman_id": "4d37b3f0-b424-4bbf-b405-73aabfd56fef",
+		"name": "00_APP_LOCADORA_CARROS_2021",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01 Marca Create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nome",
+							"value": "Ford",
+							"type": "text"
+						},
+						{
+							"key": "imagem",
+							"type": "file",
+							"src": "/C:/Users/marce/Pictures/imagens_marcas/ford.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/marca",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"marca"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Marcas LIstar",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/marca",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"marca"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Marca Listar Uma",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/marca/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"marca",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Marca Update",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nome",
+							"value": "Chevrolet New",
+							"type": "text"
+						},
+						{
+							"key": "imagem",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						},
+						{
+							"key": "_method",
+							"value": "patch",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/marca/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"marca",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Marca Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/marca/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"marca",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02 Modelo Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "marca_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "imagem",
+							"type": "file",
+							"src": "/C:/Users/marce/Pictures/imagens_modelos/ford_ka_1_0.png"
+						},
+						{
+							"key": "nome",
+							"value": "Ford KA 1.0",
+							"type": "text"
+						},
+						{
+							"key": "numero_portas",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "lugares",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "air_bag",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "abs",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/modelo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"modelo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modelos Listar",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/modelo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"modelo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modelo Listar Um",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/modelo/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"modelo",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modelo Update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "marca_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "imagem",
+							"type": "file",
+							"src": "/C:/Users/marce/Pictures/imagens_modelos/ford_ka_sedan_1_0.png"
+						},
+						{
+							"key": "nome",
+							"value": "Ford KA Sedan",
+							"type": "text"
+						},
+						{
+							"key": "numero_portas",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "lugares",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "air_bag",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "abs",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "_method",
+							"value": "patch",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/modelo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"modelo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modelo Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/modelo/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"modelo",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

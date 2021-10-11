@@ -1,18 +1,31 @@
-# LARAVEL CURSO UDEMY
+# 1. LARAVEL LOCADORA DE CARROS
+
+Objetivo: atualizar o aprendizado do Laravel que está na versão 8. 
+Tem bastante coisa nova, porém, muita coisa que vem das versões anteriores.
+
+## 1.1. Requisitos
+
+Precisamos ter o MySQL ou MariaDB, NodeJS, PHP 7.4+ e Composer.
+Vale muito você instalar tudo isto no seu WSL2 (Windows Subsystem for Linux 2)
+se você não utiliza, ou não conhece vale a pena conferir este excelente tutorial
+que o pessoal da FullCycle criou: https://github.com/codeedu/wsl2-docker-quickstart
+
+A única coisa é que o Linux dentro do Windows necessita que você inicialize os
+serviços manualmente. Exemplo: devemos iniciar o mysql o php antes de começarmos 
+a trabalhar no projeto. 
+
+Vou supor que você resolveu utilizar o WSL2 para programar, que fica muito simples.
+Outra dica é montar os requisitos dentro de um Conteiner Docker. Se você também
+não sabe o que é um `docker-compose.yml` vale conferir o canal do youtube do pessoal
+da FullCycle. 
 
 
-```s
-CREATE DATABASE locadoradb CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-CREATE USER 'admin_mariadb'@'localhost' IDENTIFIED BY 'changeme';
-GRANT ALL PRIVILEGES ON *.* TO 'admin_mariadb'@'localhost';
-CREATE USER 'admin_mariadb'@'%' IDENTIFIED BY 'changeme';
-GRANT ALL PRIVILEGES ON *.* TO 'admin_mariadb'@'%';
-flush privileges;
-quit;
-```
+# 2. Criando a Aplicação Passo a Passo
+
+Depois de instalados os requisitos vamos iniciar criando o BD que utilizaremos:
 
 Na prática basta acessar o mysql com root (sudo) e criar o BD
-o usuário já foi criado para outros BDs e mantive o mesmo.
+e o usuário:
 
 ```s
 sudo mysql
@@ -29,20 +42,40 @@ MariaDB [(none)]> show databases
 +--------------------+
 | Database           |
 +--------------------+
-| blogql01           |
 | information_schema |
 | mysql              |
 | performance_schema |
-| tg30anos_db        |
 +--------------------+
 5 rows in set (0.003 sec)
 
 MariaDB [(none)]> CREATE DATABASE locadoradb CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 Query OK, 1 row affected (0.001 sec)
-
+MariaDB [(none)]> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| locadoradb        |
++--------------------+
+5 rows in set (0.003 sec)
 ```
 
-## .env
+Resumo dos comandos completo:
+
+```s
+CREATE DATABASE locadoradb CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER 'admin_mariadb'@'localhost' IDENTIFIED BY 'changeme';
+GRANT ALL PRIVILEGES ON *.* TO 'admin_mariadb'@'localhost';
+CREATE USER 'admin_mariadb'@'%' IDENTIFIED BY 'changeme';
+GRANT ALL PRIVILEGES ON *.* TO 'admin_mariadb'@'%';
+flush privileges;
+quit;
+```
+
+Agora crie ou copie do arquivo `.env.example` o arquivo `.env` na raiz do projeto.
 
 ```s
 DB_CONNECTION=mysql
@@ -52,6 +85,8 @@ DB_DATABASE=locadoradb
 DB_USERNAME=admin_mariadb
 DB_PASSWORD=changeme
 ```
+
+# 3. SETUP DO PROJETO BAIXADO DO GIT
 
 Execute os seguintes comandos:
 
@@ -65,62 +100,62 @@ php artisan migrate
 php artisan db:seed
 ```
 
-Versão do Laravel usado:
+Como saber a versão do Laravel usado:
 ```s
 php artisan -V
 Laravel Framework 8.63.0
 ```
 
-Finalmente:
+Finalmente inicie o site com o comando:
 
 ```s
 php artisan serve
 ```
 
-Acesse: `localhost:8000`
+Se acessarmos o endereço `http://localhost:8000` veremos a tela inicial de Welcome
+do Laravel 8. Que por enquanto não programamos a interface gráfica inicial. 
+
+Porém, utilize o Postman para testar a API. Em `docs/POSTMAN_COLLECTION` basta
+importar a Collection do Postman para seu Workspace e sair utilizando.
 
 
-# DESCRIÇÃO DESTE PROJETO
+# 4. Como configurar o XDebug no VSCode para o Laravel 8
 
-Este projeto implementa uma API de Aluguéis de Carro.
+1. Instale Debug support for PHP with Xdebug Extension no VSCode.
 
-Não possui o FrontEnd.. as rotas estão todas em routes/api.php
+No arquivo `routes:web` do projeto criamos a rota info pois
+precisaremos copiar e colar o seu conteúdo em `https://xdebug.org/wizard`
 
-
-
-
-# Como configurar o Debug no VSCode para o Laravel 8
-
-Configurando PHP e VSCode para Depuração
-
-No arquivo routes:web crie a rota info:
-
-```
+```php
 Route::get('/info', function () { 
     return phpinfo(); 
 });
 ```
 
-Pegue o conteúdo e jogue em
-https://xdebug.org/wizard
+Então, primeiro verifique se o projeto está rodando `php artisan serve`
+abra a url `http://localhost:8000/info` com o teclado tecle Ctrl + A para selecionar
+todo o conteúda da página, copie Ctrl+C e cole dentro da página `https://xdebug.org/wizard`
 
-Jeito fácil
-sudo apt-get install php7.4-xdebug
+Ele analisará toda a sua máquina e dará todos os passos para você executar a configuração.
 
-Compilado, baixe
-https://xdebug.org/files/xdebug-3.1.0.tgz
+Seguindo os passos que me foram retornados:
 
-```
+Baixe `https://xdebug.org/files/xdebug-3.1.0.tgz` e vamos seguir as instruções para
+compilá-lo:
+
+```s
 Instructions 
-Download xdebug-3.1.0.tgz  
+Download xdebug-3.1.0.tgz from https://xdebug.org/files/xdebug-3.1.0.tgz
+
 Install the pre-requisites for compiling PHP extensions. These packages are often called 'php-dev', or 'php-devel', 'automake' and 'autoconf'. 
 
-Unpack the downloaded file with tar -xvzf xdebug-3.1.0.tgz 
-Run: cd xdebug-3.1.0 
+Unpack the downloaded file with 'tar -xvzf xdebug-3.1.0.tgz'
+Run: 'cd xdebug-3.1.0'
 
-Run: phpize (See the FAQ if you don't have phpize). 
+Run: phpize (See the FAQ if you dont have phpize). 
 
- phpize 
+Run: 'phpize'
+
 Configuring for: 
 PHP Api Version:         20190902 
 Zend Module Api No:      20190902 
@@ -132,35 +167,38 @@ Configuring for:
 ... 
 Zend Module Api No:      20190902 
 Zend Extension Api No:   320190902 
-If it does not, you are using the wrong phpize. Please follow this FAQ entry and skip the next step. 
-Run: ./configure 
-Run: make 
-Run: sudo cp modules/xdebug.so /usr/lib/php/20190902 
 
-sudo touch /etc/php/7.4/cli/conf.d/99-xdebug.ini
-sudo joe /etc/php/7.4/cli/conf.d/99-xdebug.ini
-Create /etc/php/7.4/cli/conf.d/99-xdebug.ini and add the line: 
-zend_extension = xdebug 
+If it does not, you are using the wrong phpize. Please follow this FAQ entry and skip the next step. 
+
+
+Run: './configure'
+Run: 'make'
+Run: 'sudo cp modules/xdebug.so /usr/lib/php/20190902'
+
+Run: 'sudo touch /etc/php/7.4/cli/conf.d/99-xdebug.ini'
+Run: 'sudo joe /etc/php/7.4/cli/conf.d/99-xdebug.ini'
+Adicione em '/etc/php/7.4/cli/conf.d/99-xdebug.ini' o seguinte conteúdo (sem as aspas):
+
+'zend_extension = xdebug'
 
 Please also update php.ini files in adjacent directories, as your system seems to be configured with a separate php.ini file for the web server and command line. 
 
-Restart PHP's built-in HTTP server (php -S) 
+Restart PHPs built-in HTTP server (php -S) 
 Enabling Features 
+
 Now Xdebug is installed, you can enable its features. Please refer to the dedicated sections in the documentation about information on how to enable and configure these Xdebug features. Where these sections refer to php.ini or similar, please remember to use /etc/php/7.4/cli/conf.d/99-xdebug.ini: 
-Development Helpers — help you get better error messages and obtain better information from PHP's built-in functions. 
+Development Helpers — help you get better error messages and obtain better information from PHPs built-in functions. 
 Step Debugging — allows you to interactively walk through your code to debug control flow and examine data structures. 
 Profiling — allows you to find bottlenecks in your script and visualize those with an external tool.
 ```
+# Reinicie o servidor PHP
 
-Basta reiniciar o servidor PHP
-```
-sudo /etc/init.d/php7.4-fpm restart
-```
+Run `sudo /etc/init.d/php7.4-fpm restart`
 
-Pare o servidor laravel e reinicie novamente depois cole a página novamente em https://xdebug.org/wizard
+Pare o servidor laravel e reinicie novamente depois cole a página novamente em `https://xdebug.org/wizard`
 E você verá:
 
-```
+```s
 Xdebug installed: 2.9.2 
 Server API: Built-in HTTP server 
 Windows: no 
@@ -175,22 +213,17 @@ Configuration File Path: /etc/php/7.4/cli
 Configuration File: /etc/php/7.4/cli/php.ini
 ```
 
-```
+```s
 sudo joe /etc/php/7.4/cli/php.ini
 ```
 
-```
-zend_extension=/usr/lib/php/20190902/xdebug.so 
-;zend_extension="xdebug.so" 
-xdebug.mode = debug 
-xdebug.log = /tmp/xdebug.log 
-xdebug.client_port = 9003
-```
 
-No PHP.INI
-Como instalei meu php pelo Ansible, ele não tinha nada referente a extensions
+No `php.ini` acrescente:
+
+obs: Como instalei meu php pelo Ansible, ele não tinha nada referente a extensions
 então eu coloquei as configurações na seção Miscellaneous.
-```
+
+```ini
 ;;;;;;;;;;;;;;;;; 
 ; Miscellaneous ; 
 ;;;;;;;;;;;;;;;;; 
@@ -210,9 +243,8 @@ xdebug.remote_host=localhost
 xdebug.remote_port=9003
 ```
 
-Debug Laravel no VScode XDebug
 
-Configure o launch.json como sendo:
+Configure o `.vscode/launch.json` como sendo:
 
 ```
 { 
@@ -227,10 +259,13 @@ Configure o launch.json como sendo:
 }
 ```
 
-Para testar você deve iniciar o php artisan serve e também apertar
-o Debug.
+# Como rodar o Debug?
 
-Vamos colocar um breakpoint na rota que criamos para nos informar sobre o php
+Para testar você deve iniciar o `php artisan serve` e também apertar
+o Debug do VSCode inicializarndo o `Listen for Xdebug`
+
+Como dissemos, temos a rota que mostra o PHPINFO, vá lá e marque um breakpoint
+na linha do return, acesse o Browser em `http://127.0.0.1:8000/info` e o VSCode deve parar exatamente no ponto para depuração.
 
 ```
 Route::get('/info', function () { 
@@ -238,8 +273,6 @@ Route::get('/info', function () {
 });
 ```
 
-Acesse: http://127.0.0.1:8000/info
-volte para o vscode e veja que a requisição está 
 
 
 
@@ -253,7 +286,7 @@ volte para o vscode e veja que a requisição está
 
 
 
-# TODO: `graphql`
+# 5. TODO: `graphql`
 
 Aula:
 https://www.udemy.com/course/master-laravel-with-graphql-vuejs-and-tailwind/learn/lecture/21630804#overview
